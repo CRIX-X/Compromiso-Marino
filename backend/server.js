@@ -94,14 +94,12 @@ const Compromiso = mongoose.model("Compromiso", new mongoose.Schema({
 /* =========================
    RUTAS DE API
 ========================= */
-
 /* DONACIONES */
 app.post("/donacion", async (req, res) => {
   try {
     const { NombreCliente, MontoDinero, Organizacion, userEmail } = req.body;
     const datos = `${NombreCliente}-${MontoDinero}-${Organizacion}-${Date.now()}`;
     const hash = crypto.createHash("sha256").update(datos).digest("hex");
-
     const nueva = new Donacion({ NombreCliente, MontoDinero, Organizacion, userEmail, hash });
     const guardada = await nueva.save();
     res.json(guardada);
@@ -151,12 +149,13 @@ app.post("/compromisos", async (req, res) => {
 });
 
 /* =========================
-   ESTÁTICOS (Frontend con mayúsculas/minúsculas)
+   ESTÁTICOS (Frontend)
 ========================= */
+// Carpeta public
 const publicPath = path.join(__dirname, "public");
 app.use(express.static(publicPath));
 
-// Lista todas las páginas HTML que tienes
+// Todas las páginas HTML que quieres servir
 const htmlFiles = [
   "index.html",
   "Login.html",
@@ -165,21 +164,19 @@ const htmlFiles = [
   "extras.html"
 ];
 
-// Middleware para servir HTML dinámicamente
-app.get("*", (req, res, next) => {
-  // Ignora rutas API
+// Middleware para servir HTML ignorando mayúsculas/minúsculas
+app.use((req, res, next) => {
   if (req.path.startsWith('/donacion') || req.path.startsWith('/compromisos')) return next();
 
-  let reqPath = req.path.slice(1); // "/login.html" -> "login.html"
-  if (!reqPath) reqPath = "index.html";
+  let reqPath = req.path.slice(1) || "index.html";
 
-  let archivo = htmlFiles.find(f => f.toLowerCase() === reqPath.toLowerCase());
+  const archivo = htmlFiles.find(f => f.toLowerCase() === reqPath.toLowerCase());
 
   if (archivo && fs.existsSync(path.join(publicPath, archivo))) {
     return res.sendFile(path.join(publicPath, archivo));
   }
 
-  // Si no encuentra nada, sirve index.html como fallback SPA
+  // fallback al index.html
   const fallback = htmlFiles.find(f => f.toLowerCase() === "index.html");
   if (fallback) return res.sendFile(path.join(publicPath, fallback));
 

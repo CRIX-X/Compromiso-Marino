@@ -60,16 +60,6 @@ app.use(rateLimit({
 }));
 
 /* =========================
-   ESTÁTICOS (Frontend)
-========================= */
-app.use(express.static(path.join(__dirname, "../public")));
-
-// Para SPA: todas las rutas no encontradas van al index.html
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public", "index.html"));
-});
-
-/* =========================
    MONGO
 ========================= */
 const MONGO_URI = process.env.MONGO_URI;
@@ -101,7 +91,7 @@ const Compromiso = mongoose.model("Compromiso", new mongoose.Schema({
 }));
 
 /* =========================
-   RUTAS
+   RUTAS DE API
 ========================= */
 
 /* DONACIONES */
@@ -157,6 +147,20 @@ app.post("/compromisos", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Error al guardar compromiso" });
   }
+});
+
+/* =========================
+   ESTÁTICOS (Frontend)
+========================= */
+app.use(express.static(path.join(__dirname, "../public")));
+
+/* SPA fallback: todas las rutas no API van al index.html */
+app.get('/*', (req, res) => {
+  // Evita capturar rutas que empiezan con /donacion o /compromisos
+  if (req.path.startsWith('/donacion') || req.path.startsWith('/compromisos')) {
+    return res.status(404).send('Ruta no encontrada');
+  }
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
 
 /* =========================

@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const crypto = require('crypto');
 const path = require('path');
-
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const winston = require("winston");
@@ -36,41 +35,25 @@ app.use(express.urlencoded({ extended: true }));
 /* =========================
    HELMET (seguridad)
 ========================= */
-const URL_PROD = process.env.PROD_URL; // Ej: https://mi-proyecto.onrender.com
+const URL_PROD = process.env.PROD_URL || "*"; // Opcional
 app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: [
-          "'self'",
-          "https://www.gstatic.com",
-          "https://www.googleapis.com"
-        ],
-        connectSrc: [
-          "'self'",
-          "http://localhost:5000",  // Para desarrollo
-          URL_PROD,                 // Para producción en Render
-          "https://*.firebaseio.com",
-          "https://*.googleapis.com",
-          "https://identitytoolkit.googleapis.com"
-        ],
+        scriptSrc: ["'self'", "https://www.gstatic.com", "https://www.googleapis.com"],
+        connectSrc: ["'self'", URL_PROD],
         imgSrc: ["'self'", "data:"],
-        styleSrc: [
-          "'self'",
-          "'unsafe-inline'",
-          "https://fonts.googleapis.com"
-        ],
-        fontSrc: [
-          "'self'",
-          "https://fonts.gstatic.com"
-        ]
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"]
       }
     }
   })
 );
 
-/* RATE LIMIT */
+/* =========================
+   RATE LIMIT
+========================= */
 app.use(rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100
@@ -79,23 +62,28 @@ app.use(rateLimit({
 /* =========================
    ESTÁTICOS (Frontend)
 ========================= */
-app.use(express.static(path.join(__dirname, "frontend")));
+// Cambié "frontend" por "../public" según tu estructura
+app.use(express.static(path.join(__dirname, "../public")));
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
 
 /* =========================
    MONGO
 ========================= */
-mongoose.connect(process.env.MONGO_URI)
+const MONGO_URI = process.env.MONGO_URI;
+if (!MONGO_URI) {
+  console.error("❌ Error: MONGO_URI no definido en las Environment Variables");
+  process.exit(1);
+}
+
+mongoose.connect(MONGO_URI)
 .then(() => console.log("✅ Mongo conectado"))
-.catch(err => console.log(err));
+.catch(err => console.error("❌ Error al conectar Mongo:", err));
 
 /* =========================
    MODELOS
 ========================= */
-
-/* DONACIONES */
 const Donacion = mongoose.model("Donacion", new mongoose.Schema({
   NombreCliente: String,
   MontoDinero: Number,
@@ -105,7 +93,6 @@ const Donacion = mongoose.model("Donacion", new mongoose.Schema({
   fecha: { type: Date, default: Date.now }
 }));
 
-/* COMPROMISOS */
 const Compromiso = mongoose.model("Compromiso", new mongoose.Schema({
   userEmail: String,
   texto: String,
@@ -113,42 +100,25 @@ const Compromiso = mongoose.model("Compromiso", new mongoose.Schema({
 }));
 
 /* =========================
-   RUTA PRINCIPAL
-========================= */
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "index.html"));
-});
-
-/* =========================
-   DONACIONES
+   RUTAS
 ========================= */
 
-/* POST */
+/* DONACIONES */
 app.post("/donacion", async (req, res) => {
   try {
     const { NombreCliente, MontoDinero, Organizacion, userEmail } = req.body;
-
     const datos = `${NombreCliente}-${MontoDinero}-${Organizacion}-${Date.now()}`;
     const hash = crypto.createHash("sha256").update(datos).digest("hex");
 
-    const nueva = new Donacion({
-      NombreCliente,
-      MontoDinero,
-      Organizacion,
-      userEmail,
-      hash
-    });
-
+    const nueva = new Donacion({ NombreCliente, MontoDinero, Organizacion, userEmail, hash });
     const guardada = await nueva.save();
     res.json(guardada);
-
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ error: "Error servidor" });
   }
 });
 
-/* GET POR USUARIO */
 app.get("/donaciones/:email", async (req, res) => {
   try {
     const lista = await Donacion.find({ userEmail: req.params.email });
@@ -158,7 +128,6 @@ app.get("/donaciones/:email", async (req, res) => {
   }
 });
 
-/* DELETE */
 app.delete("/donacion/:id", async (req, res) => {
   try {
     await Donacion.findByIdAndDelete(req.params.id);
@@ -168,11 +137,7 @@ app.delete("/donacion/:id", async (req, res) => {
   }
 });
 
-/* =========================
-   COMPROMISOS
-========================= */
-
-/* GET TODOS */
+/* COMPROMISOS */
 app.get("/compromisos", async (req, res) => {
   try {
     const lista = await Compromiso.find().sort({ fecha: -1 });
@@ -182,19 +147,12 @@ app.get("/compromisos", async (req, res) => {
   }
 });
 
-/* POST */
 app.post("/compromisos", async (req, res) => {
   try {
     const { userEmail, texto } = req.body;
-
-    const nuevo = new Compromiso({
-      userEmail,
-      texto
-    });
-
+    const nuevo = new Compromiso({ userEmail, texto });
     const guardado = await nuevo.save();
     res.json(guardado);
-
   } catch (error) {
     res.status(500).json({ error: "Error al guardar compromiso" });
   }
@@ -203,8 +161,5 @@ app.post("/compromisos", async (req, res) => {
 /* =========================
    SERVER
 ========================= */
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
-});
+const PORT = process.env.PORT || 5000; // ✅ Puerto dinámico para Render
+app.listen(PORT, () => console.log(`🚀 Servidor corriendo en puerto ${PORT}`));

@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 /* =========================
    HELMET (seguridad)
 ========================= */
-const URL_PROD = process.env.PROD_URL || "*"; // Opcional
+const URL_PROD = process.env.PROD_URL || "*";
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -62,9 +62,10 @@ app.use(rateLimit({
 /* =========================
    ESTÁTICOS (Frontend)
 ========================= */
-// Cambié "frontend" por "../public" según tu estructura
 app.use(express.static(path.join(__dirname, "../public")));
-app.get("/", (req, res) => {
+
+// Para SPA: todas las rutas no encontradas van al index.html
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
 
@@ -161,5 +162,5 @@ app.post("/compromisos", async (req, res) => {
 /* =========================
    SERVER
 ========================= */
-const PORT = process.env.PORT || 5000; // ✅ Puerto dinámico para Render
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Servidor corriendo en puerto ${PORT}`));

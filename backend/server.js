@@ -94,7 +94,6 @@ const Compromiso = mongoose.model("Compromiso", new mongoose.Schema({
 /* =========================
    RUTAS DE API
 ========================= */
-/* DONACIONES */
 app.post("/donacion", async (req, res) => {
   try {
     const { NombreCliente, MontoDinero, Organizacion, userEmail } = req.body;
@@ -127,7 +126,6 @@ app.delete("/donacion/:id", async (req, res) => {
   }
 });
 
-/* COMPROMISOS */
 app.get("/compromisos", async (req, res) => {
   try {
     const lista = await Compromiso.find().sort({ fecha: -1 });
@@ -151,34 +149,26 @@ app.post("/compromisos", async (req, res) => {
 /* =========================
    ESTÁTICOS (Frontend)
 ========================= */
-// Carpeta public
 const publicPath = path.join(__dirname, "public");
 app.use(express.static(publicPath));
 
-// Todas las páginas HTML que quieres servir
-const htmlFiles = [
-  "index.html",
-  "Login.html",
-  "Registro.html",
-  "Donaciones.html",
-  "extras.html"
-];
-
-// Middleware para servir HTML ignorando mayúsculas/minúsculas
+/* =========================
+   SERVIR CUALQUIER HTML (case-insensitive)
+========================= */
 app.use((req, res, next) => {
   if (req.path.startsWith('/donacion') || req.path.startsWith('/compromisos')) return next();
 
-  let reqPath = req.path.slice(1) || "index.html";
+  const requested = req.path.slice(1); // quita el slash inicial
+  let files = fs.readdirSync(publicPath).filter(f => f.endsWith(".html"));
 
-  const archivo = htmlFiles.find(f => f.toLowerCase() === reqPath.toLowerCase());
+  // Buscar coincidencia ignorando mayúsculas
+  let match = files.find(f => f.toLowerCase() === (requested || "index.html").toLowerCase());
 
-  if (archivo && fs.existsSync(path.join(publicPath, archivo))) {
-    return res.sendFile(path.join(publicPath, archivo));
-  }
+  if (match) return res.sendFile(path.join(publicPath, match));
 
-  // fallback al index.html
-  const fallback = htmlFiles.find(f => f.toLowerCase() === "index.html");
-  if (fallback) return res.sendFile(path.join(publicPath, fallback));
+  // fallback a index.html / Index.html
+  match = files.find(f => f.toLowerCase() === "index.html");
+  if (match) return res.sendFile(path.join(publicPath, match));
 
   res.status(404).send("Página no encontrada");
 });

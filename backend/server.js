@@ -69,8 +69,8 @@ if (!MONGO_URI) {
 }
 
 mongoose.connect(MONGO_URI)
-.then(() => console.log("✅ Mongo conectado"))
-.catch(err => console.error("❌ Error al conectar Mongo:", err));
+  .then(() => console.log("✅ Mongo conectado"))
+  .catch(err => console.error("❌ Error al conectar Mongo:", err));
 
 /* =========================
    MODELOS
@@ -155,11 +155,10 @@ app.post("/compromisos", async (req, res) => {
 app.use(express.static(path.join(__dirname, "../public")));
 
 /* SPA fallback: todas las rutas no API van al index.html */
-app.get('/*', (req, res) => {
-  // Evita capturar rutas que empiezan con /donacion o /compromisos
-  if (req.path.startsWith('/donacion') || req.path.startsWith('/compromisos')) {
-    return res.status(404).send('Ruta no encontrada');
-  }
+app.use((req, res, next) => {
+  // Si es ruta API, deja que las maneje
+  if (req.path.startsWith('/donacion') || req.path.startsWith('/compromisos')) return next();
+  // Si no, sirve el index.html
   res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
 

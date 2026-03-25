@@ -1,0 +1,146 @@
+/* ===== GLOBAL ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== BODY ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('img/FondoA.png') center/cover no-repeat;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 116, 182, 0.7); /* capa azul transparente sobre la imagen */
+    z-index: 0;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.9); /* fondo semi-transparente */
+    padding: 50px 40px;
+    border-radius: 20px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1s ease;
+}
+
+/* ===== TITULO ===== */
+h2 {
+    margin-bottom: 25px;
+    color: #0077b6;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* ===== INPUTS ===== */
+input {
+    width: 100%;
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+input:focus {
+    border-color: #00b4d8;
+    box-shadow: 0 0 10px rgba(0,180,216,0.5);
+    outline: none;
+}
+
+/* ===== PASSWORD TOGGLE ===== */
+.password-container {
+    position: relative;
+}
+
+.toggle {
+    position: absolute;
+    right: 15px;
+    top: 14px;
+    cursor: pointer;
+    font-size: 20px;
+    user-select: none;
+}
+
+/* ===== BOTONES ===== */
+button {
+    width: 100%;
+    padding: 14px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 12px;
+}
+
+button:hover {
+    background: #00b4d8;
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* BOTÓN IR AL INICIO */
+.homeBtn {
+    background: #00b4d8;
+}
+
+.homeBtn:hover {
+    background: #0077b6;
+}
+
+/* ===== LINKS ===== */
+a {
+    color: #0077b6;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===== MENSAJES ===== */
+.mensaje {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    display: none;
+}
+
+.mensaje.error {
+    background-color: #ffdddd;
+    color: #a10000;
+}
+
+.mensaje.exito {
+    background-color: #ddffdd;
+    color: #006600;
+}
+
+/* ===== ANIMACION ===== */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}

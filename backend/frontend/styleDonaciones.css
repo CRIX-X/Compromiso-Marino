@@ -1,0 +1,389 @@
+/* ===== BODY ===== */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0a2540, #1e3c72);
+    margin: 0;
+    color: white;
+}
+
+/* ===== NAV ===== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+}
+
+/* BOTONES NAV */
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* ===== LAYOUT ===== */
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    margin-top: 50px;
+    flex-wrap: wrap;
+}
+
+/* ===== TARJETA ===== */
+.card-container {
+    perspective: 1200px;
+}
+
+.card {
+    width: 320px;
+    height: 200px;
+    border-radius: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.card.flip {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* FRENTE */
+.card-front {
+    gap: 10px;
+    overflow: hidden;
+}
+
+/* REVERSO */
+.card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, #1e1e1e, #2e2e2e);
+}
+
+/* CHIP */
+.card-chip {
+    width: 50px;
+    height: 35px;
+    background: gold;
+    border-radius: 6px;
+}
+
+/* NUMERO */
+#cardNumber {
+    font-size: 18px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* INFO */
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+    width: 100%;
+}
+
+/* NOMBRE */
+#cardName {
+    font-size: 14px;
+    text-transform: uppercase;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* FECHA */
+#cardDate {
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-right: 15px;
+}
+
+/* REVERSO */
+.magnetic-strip {
+    width: 100%;
+    height: 40px;
+    background: black;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.cvv-box {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.cvv-box span {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.cvv-box p {
+    background: white;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 4px;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+/* ===== FORM ===== */
+.form-box {
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    width: 320px;
+}
+
+/* FILA DOBLE */
+.row {
+    display: flex;
+    gap: 10px;
+}
+
+.row input {
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* INPUTS */
+input, select {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    outline: none;
+}
+
+/* SELECT */
+select {
+    background: #1e3c72;
+    color: white;
+}
+
+select option {
+    background: white;
+    color: black;
+}
+
+/* PLACEHOLDER */
+input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+/* ===== BOTONES ===== */
+button {
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #00b4d8, #0077b6);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* HOVER */
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* CLICK */
+button:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+/* BOTÓN INICIO */
+#homeBtn {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(5px);
+}
+
+#homeBtn:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+/* LOGOUT */
+#logoutBtn {
+    background: linear-gradient(135deg, #ff4d4d, #c9184a);
+}
+
+#logoutBtn:hover {
+    background: linear-gradient(135deg, #ff6b6b, #e63946);
+}
+
+/* BOTÓN DONAR */
+.form-box button {
+    margin-top: 10px;
+    background: linear-gradient(135deg, #00d4ff, #0077ff);
+    font-size: 16px;
+}
+
+.form-box button:hover {
+    background: linear-gradient(135deg, #00e0ff, #005eff);
+}
+
+/* SUCCESS */
+.success {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #00c853;
+    padding: 15px 25px;
+    border-radius: 10px;
+    display: none;
+    animation: slide 0.5s ease;
+}
+
+@keyframes slide {
+    from { transform: translateX(200px); }
+    to { transform: translateX(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 700px) {
+    .contenedor {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+.historial-box {
+    width: 80%;
+    max-width: 600px;
+    margin: 40px auto;
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.historial-box h2 {
+    text-align: center;
+}
+
+#listaDonaciones {
+    list-style: none;
+    padding: 0;
+}
+
+#listaDonaciones li {
+    background: rgba(255,255,255,0.1);
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 10px;
+}
+/* FONDO CON IMAGEN */
+.fondo-donaciones{
+  background:url('img/fondoM.png') center/cover no-repeat;
+  min-height:100vh;
+  position:relative;
+}
+
+/* OVERLAY OSCURO PARA QUE SE LEA BIEN */
+.fondo-donaciones::before{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  z-index:0;
+}
+
+/* ASEGURA QUE TODO EL CONTENIDO QUEDE ENCIMA */
+body > *{
+  position:relative;
+  z-index:2;
+}
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.modal-content{
+  background:#0A2647;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+  color:white;
+  box-shadow:0 0 20px black;
+}
+
+.modal-buttons{
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+  gap:15px;
+}
+
+.modal-buttons button{
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+#btnSi{
+  background:#ff4d4d;
+  color:white;
+}
+
+#btnSi:hover{
+  transform:scale(1.1);
+}
+
+#btnNo{
+  background:#00C4CC;
+  color:black;
+}
+
+#btnNo:hover{
+  transform:scale(1.1);
+}

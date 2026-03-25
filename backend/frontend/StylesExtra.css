@@ -1,0 +1,107 @@
+/* ESTADÍSTICAS */
+.seccion-estadisticas .estadisticas-container{
+  display:flex;
+  gap:40px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:30px;
+}
+
+.seccion-estadisticas .estadistica h3{
+  font-size:3rem;
+  color:#00C4CC;
+}
+
+.seccion-estadisticas .estadistica p{
+  margin-top:10px;
+  font-size:1.2rem;
+  text-align:center;
+}
+
+/* MAPA */
+#map{
+  width:90%;
+  max-width:1000px;
+  border-radius:15px;
+  margin-top:20px;
+  border:3px solid #00C4CC;
+}
+
+/* TESTIMONIOS */
+.seccion-testimonios .testimonial-container{
+  display:flex;
+  gap:30px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.seccion-testimonios .testimonial{
+  background:rgba(0,196,204,0.2);
+  padding:20px;
+  border-radius:15px;
+  max-width:300px;
+  text-align:center;
+}
+
+/* REDES */
+.seccion-redes .partners{
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.seccion-redes .partners img{
+  width:60px;
+  height:auto;
+  transition:0.3s;
+}
+
+.seccion-redes .partners img:hover{
+  transform:scale(1.2);
+}
+
+/* MODAL NEWSLETTER */
+.modal{
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.7);
+  justify-content:center;
+  align-items:center;
+  z-index:10000;
+}
+
+.modal-content{
+  background:#144272;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+}
+
+.modal-content input{
+  width:80%;
+  margin:15px 0;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+}
+
+.modal-content button{
+  padding:10px 15px;
+  border-radius:10px;
+  border:none;
+  background:#00C4CC;
+  cursor:pointer;
+}
+
+#cerrarModal{
+  position:absolute;
+  top:20px;
+  right:30px;
+  font-size:2rem;
+  cursor:pointer;
+  color:white;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - EcoMar</title>
+    <link rel="stylesheet" href="styleLogin.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Inicio de sesión 🌎</h2>
+
+    <!-- MENSAJES -->
+    <div id="mensaje" class="mensaje"></div>
+
+    <input type="email" id="email" placeholder="Correo">
+
+    <div class="password-container">
+        <input type="password" id="password" placeholder="Contraseña">
+        <span id="togglePassword" class="toggle">👁</span>
+    </div>
+
+    <button id="loginBtn">Iniciar sesión</button>
+
+    <!-- NUEVO BOTÓN AL INICIO -->
+    <button id="homeBtn" class="homeBtn">🏠 Ir al Inicio</button>
+
+    <p>¿No tienes cuenta? 
+        <a href="Registro.html">Regístrate</a>
+    </p>
+
+    <p>
+        <a href="#" id="recuperar">¿Olvidaste tu contraseña?</a>
+    </p>
+
+</div>
+
+<script type="module" src="/auth.js"></script>
+<script>
+    // Redirige al inicio de la web
+    document.getElementById("homeBtn").addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+</script>
+
+</body>
+</html>

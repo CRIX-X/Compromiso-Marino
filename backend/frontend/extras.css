@@ -1,0 +1,150 @@
+/* SECCIONES CON FONDOS */
+.seccion-impacto{
+  background:url('img/FondoP.png') center/cover no-repeat;
+}
+.seccion-aprende{
+  background:url('img/FondoA.png') center/cover no-repeat;
+}
+.seccion-testimonios{
+  background:url('img/FondoC.png') center/cover no-repeat;
+}
+.seccion-compromiso{
+  background:url('img/FondoC.png') center/cover no-repeat;
+}
+
+/* CONTADORES */
+.impacto-counters{
+  display:flex;
+  gap:40px;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.counter{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.counter img{
+  width:100px;
+  height:100px;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.counter h3{
+  font-size:3rem;
+  color:#00C4CC;
+}
+
+.counter p{
+  margin-top:10px;
+  font-size:1.2rem;
+}
+
+/* MAPA INTERACTIVO */
+.mapa-container{
+  position:relative;
+  max-width:900px;
+  width:90%;
+}
+
+.mapa-container img{
+  width:100%;
+  border-radius:20px;
+}
+
+.mapa-punto{
+  position:absolute;
+  width:20px;
+  height:20px;
+  background:red;
+  border-radius:50%;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.mapa-punto:hover{
+  transform:scale(1.5);
+  background:#00C4CC;
+}
+
+/* TESTIMONIOS */
+.testimonial-container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.testimonial{
+  background:rgba(0,196,204,0.2);
+  padding:20px;
+  border-radius:15px;
+  max-width:300px;
+  text-align:center;
+}
+
+.testimonial img{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  margin-bottom:10px;
+}
+
+/* ALIADOS */
+.partners{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:20px;
+}
+
+.partners img{
+  width:80px;
+  height:auto;
+}
+
+/* REDES SOCIALES */
+.redes-container button{
+  margin:10px;
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  background:#00C4CC;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.redes-container button:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 10px #00C4CC;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  background:#0A2647;
+}
+
+/* TOOLTIP */
+.tooltip{
+  position:absolute;
+  padding:8px 12px;
+  background:rgba(0,123,255,0.9);
+  color:#fff;
+  border-radius:6px;
+  font-size:0.9rem;
+  pointer-events:none;
+  transition:all 0.2s ease;
+  opacity:0;
+  z-index:1000;
+}

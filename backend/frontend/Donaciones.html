@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Donaciones</title>
+<link rel="stylesheet" href="styleDonaciones.css">
+</head>
+
+<body class="fondo-donaciones">
+
+<div class="navbar">
+  <span id="usuarioLogueado">Bienvenido</span>
+
+  <div class="nav-buttons">
+    <button id="homeBtn">🏠 Inicio</button>
+    <button id="logoutBtn">Cerrar sesión</button>
+  </div>
+</div>
+
+<div class="contenedor">
+
+  <div class="card-container">
+    <div class="card" id="card">
+
+      <div class="card-front">
+        <div class="card-chip"></div>
+        <p id="cardNumber">#### #### #### ####</p>
+
+        <div class="card-info">
+          <p id="cardName">NOMBRE</p>
+          <p id="cardDate">MM/AA</p>
+        </div>
+      </div>
+
+      <div class="card-back">
+        <div class="magnetic-strip"></div>
+
+        <div class="cvv-box">
+          <span>CVV</span>
+          <p id="cardCVV">***</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="form-box">
+    <h1>💳 Donación</h1>
+
+    <form id="donacionForm">
+
+      <input type="text" id="NombreCliente" placeholder="Nombre en la tarjeta" required>
+
+      <input type="text" id="NumeroTarjeta" placeholder="Número de tarjeta" maxlength="19" required>
+
+      <div class="row">
+        <input type="text" id="Fecha" placeholder="MM/AA" maxlength="5" required>
+        <input type="password" id="CVV" placeholder="CVV" maxlength="3" required>
+      </div>
+
+      <select id="Organizacion" required>
+        <option value="">Selecciona organización</option>
+        <option value="Playas">Playas</option>
+        <option value="Tortugas">Tortugas</option>
+        <option value="Arrecifes">Arrecifes</option>
+      </select>
+
+      <input type="text" id="MontoDinero" placeholder="Monto" required>
+
+      <button type="submit">💙 Donar</button>
+
+    </form>
+  </div>
+
+</div>
+
+<!-- MODAL CONFIRMACION -->
+<div id="modalConfirm" class="modal">
+  <div class="modal-content">
+    <p>¿Seguro que quieres cancelar tu donación?</p>
+    <div class="modal-buttons">
+      <button id="btnSi">Sí</button>
+      <button id="btnNo">No</button>
+    </div>
+  </div>
+</div>
+
+<div class="success" id="successMsg">Operación exitosa 💙</div>
+
+<div class="historial-box">
+  <h2>📊 Historial</h2>
+  <ul id="listaDonaciones"></ul>
+</div>
+
+<script type="module" src="Donaciones.js"></script>
+
+</body>
+</html>
+

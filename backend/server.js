@@ -151,26 +151,39 @@ app.post("/compromisos", async (req, res) => {
 });
 
 /* =========================
-   ESTÁTICOS (Frontend)
+   ESTÁTICOS (Frontend con mayúsculas/minúsculas)
 ========================= */
+const publicPath = path.join(__dirname, "public");
+app.use(express.static(publicPath));
 
-// Sirve la carpeta public que está dentro de backend
-app.use(express.static(path.join(__dirname, "public")));
+// Lista todas las páginas HTML que tienes
+const htmlFiles = [
+  "index.html",
+  "Login.html",
+  "Registro.html",
+  "Donaciones.html",
+  "extras.html"
+];
 
-// Todas las rutas que no sean API van al index.html (index.html o Index.html)
-app.use((req, res, next) => {
+// Middleware para servir HTML dinámicamente
+app.get("*", (req, res, next) => {
+  // Ignora rutas API
   if (req.path.startsWith('/donacion') || req.path.startsWith('/compromisos')) return next();
 
-  const indexLower = path.join(__dirname, "public", "index.html");
-  const indexUpper = path.join(__dirname, "public", "Index.html");
+  let reqPath = req.path.slice(1); // "/login.html" -> "login.html"
+  if (!reqPath) reqPath = "index.html";
 
-  if (fs.existsSync(indexLower)) {
-    res.sendFile(indexLower);
-  } else if (fs.existsSync(indexUpper)) {
-    res.sendFile(indexUpper);
-  } else {
-    res.status(404).send("index.html no encontrado");
+  let archivo = htmlFiles.find(f => f.toLowerCase() === reqPath.toLowerCase());
+
+  if (archivo && fs.existsSync(path.join(publicPath, archivo))) {
+    return res.sendFile(path.join(publicPath, archivo));
   }
+
+  // Si no encuentra nada, sirve index.html como fallback SPA
+  const fallback = htmlFiles.find(f => f.toLowerCase() === "index.html");
+  if (fallback) return res.sendFile(path.join(publicPath, fallback));
+
+  res.status(404).send("Página no encontrada");
 });
 
 /* =========================

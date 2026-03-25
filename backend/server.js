@@ -7,6 +7,7 @@ const path = require('path');
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const winston = require("winston");
+const fs = require('fs');
 
 const app = express();
 
@@ -156,10 +157,20 @@ app.post("/compromisos", async (req, res) => {
 // Sirve la carpeta public que está dentro de backend
 app.use(express.static(path.join(__dirname, "public")));
 
-// Todas las rutas que no sean API van al index.html
+// Todas las rutas que no sean API van al index.html (index.html o Index.html)
 app.use((req, res, next) => {
   if (req.path.startsWith('/donacion') || req.path.startsWith('/compromisos')) return next();
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+
+  const indexLower = path.join(__dirname, "public", "index.html");
+  const indexUpper = path.join(__dirname, "public", "Index.html");
+
+  if (fs.existsSync(indexLower)) {
+    res.sendFile(indexLower);
+  } else if (fs.existsSync(indexUpper)) {
+    res.sendFile(indexUpper);
+  } else {
+    res.status(404).send("index.html no encontrado");
+  }
 });
 
 /* =========================

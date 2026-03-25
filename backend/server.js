@@ -93,6 +93,8 @@ const Compromiso = mongoose.model("Compromiso", new mongoose.Schema({
 /* =========================
    RUTAS DE API
 ========================= */
+
+/* DONACIONES */
 app.post("/donacion", async (req, res) => {
   try {
     const { NombreCliente, MontoDinero, Organizacion, userEmail } = req.body;
@@ -126,6 +128,7 @@ app.delete("/donacion/:id", async (req, res) => {
   }
 });
 
+/* COMPROMISOS */
 app.get("/compromisos", async (req, res) => {
   try {
     const lista = await Compromiso.find().sort({ fecha: -1 });
@@ -149,13 +152,14 @@ app.post("/compromisos", async (req, res) => {
 /* =========================
    ESTÁTICOS (Frontend)
 ========================= */
-const publicPath = path.join(__dirname, "public");
-app.use(express.static(publicPath));
 
-/* SPA fallback: todas las rutas que no sean API van al index.html */
+// Sirve la carpeta public que está dentro de backend
+app.use(express.static(path.join(__dirname, "public")));
+
+// Todas las rutas que no sean API van al index.html
 app.use((req, res, next) => {
   if (req.path.startsWith('/donacion') || req.path.startsWith('/compromisos')) return next();
-  res.sendFile(path.join(publicPath, "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 /* =========================

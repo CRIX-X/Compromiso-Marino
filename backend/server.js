@@ -29,18 +29,17 @@ const logger = winston.createLogger({
 /* =========================
    MIDDLEWARES
 ========================= */
-// CORS: permite tu frontend de Render y localhost
-app.use(cors({
-  origin: [
-    "https://compromiso-marino.onrender.com",
-    "http://localhost:3000"
-  ],
-  methods: ["GET", "POST", "DELETE", "PUT"],
-  credentials: true
-}));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+/* =========================
+   CORS
+========================= */
+const FRONTEND_URL = process.env.FRONTEND_URL || "*";
+app.use(cors({
+  origin: FRONTEND_URL,
+  methods: ["GET", "POST", "DELETE"],
+}));
 
 /* =========================
    HELMET (seguridad)
@@ -62,10 +61,10 @@ app.use(
 );
 
 /* =========================
-   RATE LIMIT (puedes aumentar intentos)
+   RATE LIMIT
 ========================= */
 app.use(rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 min
+  windowMs: 15 * 60 * 1000,
   max: 1000
 }));
 
@@ -162,20 +161,17 @@ const publicPath = path.join(__dirname, "public");
 app.use(express.static(publicPath));
 
 /* =========================
-   SERVIR CUALQUIER HTML (case-insensitive)
+   SERVIR HTML (case-insensitive)
 ========================= */
 app.use((req, res, next) => {
   if (req.path.startsWith('/donacion') || req.path.startsWith('/compromisos')) return next();
 
-  const requested = req.path.slice(1); // quita el slash inicial
-  let files = fs.readdirSync(publicPath).filter(f => f.endsWith(".html"));
-
-  // Buscar coincidencia ignorando mayúsculas
+  const requested = req.path.slice(1); // remove initial slash
+  const files = fs.readdirSync(publicPath).filter(f => f.endsWith(".html"));
   let match = files.find(f => f.toLowerCase() === (requested || "index.html").toLowerCase());
 
   if (match) return res.sendFile(path.join(publicPath, match));
 
-  // fallback a index.html / Index.html
   match = files.find(f => f.toLowerCase() === "index.html");
   if (match) return res.sendFile(path.join(publicPath, match));
 

@@ -29,7 +29,16 @@ const logger = winston.createLogger({
 /* =========================
    MIDDLEWARES
 ========================= */
-app.use(cors());
+// CORS: permite tu frontend de Render y localhost
+app.use(cors({
+  origin: [
+    "https://compromiso-marino.onrender.com",
+    "http://localhost:3000"
+  ],
+  methods: ["GET", "POST", "DELETE", "PUT"],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -53,10 +62,10 @@ app.use(
 );
 
 /* =========================
-   RATE LIMIT
+   RATE LIMIT (puedes aumentar intentos)
 ========================= */
 app.use(rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 15 * 60 * 1000, // 15 min
   max: 1000
 }));
 

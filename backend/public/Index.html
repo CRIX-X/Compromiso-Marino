@@ -10,7 +10,10 @@
 
 <body>
 
-<!-- NAVBAR -->
+<!-- =========================
+     NAVBAR
+========================= -->
+
 <nav>
 
   <div class="logo-container">
@@ -27,19 +30,29 @@
   </ul>
 
   <div id="authArea">
-    <a href="login.html" id="loginBtn">Iniciar Sesión</a>
-    <a href="Registro.html" id="registerBtn">Registrarse</a>
+
+    <a href="login.html" id="loginBtn">
+      Iniciar Sesión
+    </a>
+
+    <a href="Registro.html" id="registerBtn">
+      Registrarse
+    </a>
 
     <span id="userEmail" style="display:none;"></span>
 
     <button id="logoutBtn" style="display:none;">
       Cerrar Sesión
     </button>
+
   </div>
 
 </nav>
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
+
 <section class="hero">
 
   <h1>Protejamos Nuestros Océanos</h1>
@@ -220,7 +233,10 @@
 
 </section>
 
-<!-- DATOS -->
+<!-- =========================
+     DATOS
+========================= -->
+
 <section id="aprende" class="seccion seccion-aprende">
 
   <h2>🧠 Datos Curiosos</h2>
@@ -233,7 +249,10 @@
 
 </section>
 
-<!-- COMPROMISO -->
+<!-- =========================
+     COMPROMISO
+========================= -->
+
 <section id="compromiso" class="seccion seccion-compromiso">
 
   <h2>✍️ Deja Tu Compromiso</h2>
@@ -252,73 +271,92 @@
 
 </section>
 
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
   <p>© 2026 Conciencia Marina</p>
 </footer>
 
 <!-- =========================
-     SCRIPT CARRUSEL FLUIDO
+     SCRIPT CARRUSEL
 ========================= -->
 
 <script>
 
-const track = document.getElementById("carouselTrack");
+window.addEventListener("load", () => {
 
-/* GUARDAR CARDS ORIGINALES */
-const originalCards = [...track.children];
+  const track =
+    document.getElementById("carouselTrack");
 
-/* CLONAR MUCHAS VECES */
-for(let i = 0; i < 4; i++){
+  /* GUARDAR ORIGINALES */
+  const originalCards =
+    [...track.children];
 
-  originalCards.forEach(card => {
+  /* CLONAR MUCHAS VECES */
+  for(let i = 0; i < 4; i++){
 
-    const clone = card.cloneNode(true);
+    originalCards.forEach(card => {
 
-    track.appendChild(clone);
+      const clone =
+        card.cloneNode(true);
 
-  });
+      track.appendChild(clone);
 
-}
-
-/* MOVIMIENTO */
-let position = 0;
-const speed = 0.7;
-
-/* CALCULAR ANCHO ORIGINAL */
-let singleSetWidth = 0;
-
-originalCards.forEach(card => {
-
-  singleSetWidth += card.offsetWidth + 30;
-
-});
-
-/* ANIMACIÓN */
-function animateCarousel(){
-
-  position -= speed;
-
-  if(Math.abs(position) >= singleSetWidth){
-
-    position = 0;
+    });
 
   }
 
-  track.style.transform =
-    `translate3d(${position}px, 0, 0)`;
+  /* MOVIMIENTO */
+  let position = 0;
 
-  requestAnimationFrame(animateCarousel);
+  const speed = 0.7;
 
-}
+  /* CALCULAR ANCHO */
+  let singleSetWidth = 0;
 
-/* INICIAR */
-animateCarousel();
+  originalCards.forEach(card => {
+
+    singleSetWidth +=
+      card.offsetWidth + 30;
+
+  });
+
+  /* ANIMACIÓN */
+  function animateCarousel(){
+
+    position -= speed;
+
+    if(Math.abs(position) >= singleSetWidth){
+
+      position = 0;
+
+    }
+
+    track.style.transform =
+      `translate3d(${position}px,0,0)`;
+
+    requestAnimationFrame(
+      animateCarousel
+    );
+
+  }
+
+  animateCarousel();
+
+});
 
 </script>
 
-<!-- Scripts -->
+<!-- =========================
+     SCRIPTS
+========================= -->
+
 <script src="js/chart.js" defer></script>
+
 <script src="js/impacto.js" defer></script>
+
 <script type="module" src="main.js" defer></script>
 
 </body>

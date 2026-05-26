@@ -50,10 +50,21 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "https://www.gstatic.com", "https://www.googleapis.com"],
+
+        // ✅ FIX DEL CARRUSEL (INLINE SCRIPTS PERMITIDOS)
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          "https://www.gstatic.com",
+          "https://www.googleapis.com"
+        ],
+
         connectSrc: ["'self'", URL_PROD],
+
         imgSrc: ["'self'", "data:"],
+
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+
         fontSrc: ["'self'", "https://fonts.gstatic.com"]
       }
     }
@@ -166,9 +177,12 @@ app.use(express.static(publicPath));
 app.use((req, res, next) => {
   if (req.path.startsWith('/donacion') || req.path.startsWith('/compromisos')) return next();
 
-  const requested = req.path.slice(1); // remove initial slash
+  const requested = req.path.slice(1);
   const files = fs.readdirSync(publicPath).filter(f => f.endsWith(".html"));
-  let match = files.find(f => f.toLowerCase() === (requested || "index.html").toLowerCase());
+
+  let match = files.find(f =>
+    f.toLowerCase() === (requested || "index.html").toLowerCase()
+  );
 
   if (match) return res.sendFile(path.join(publicPath, match));
 

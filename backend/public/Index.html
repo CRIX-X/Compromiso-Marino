@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Conciencia Marina</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Ajusta la ruta si Styles.css está dentro de frontend/ -->
+
 <link rel="stylesheet" href="Styles.css">
 </head>
 
@@ -12,6 +12,7 @@
 
 <!-- NAVBAR -->
 <nav>
+
   <div class="logo-container">
     <img src="img/logo.png" alt="Logo">
     <h2>Conciencia Marina</h2>
@@ -28,121 +29,297 @@
   <div id="authArea">
     <a href="login.html" id="loginBtn">Iniciar Sesión</a>
     <a href="Registro.html" id="registerBtn">Registrarse</a>
+
     <span id="userEmail" style="display:none;"></span>
-    <button id="logoutBtn" style="display:none;">Cerrar Sesión</button>
+
+    <button id="logoutBtn" style="display:none;">
+      Cerrar Sesión
+    </button>
   </div>
+
 </nav>
 
 <!-- HERO -->
 <section class="hero">
+
   <h1>Protejamos Nuestros Océanos</h1>
-  <p>El océano produce más del 50% del oxígeno del planeta.</p>
-  
+
+  <p>
+    El océano produce más del 50% del oxígeno del planeta.
+  </p>
+
   <div id="impactoContainer">
-    <button id="btnImpacto">Ver Impacto Real</button>
+
+    <button id="btnImpacto">
+      Ver Impacto Real
+    </button>
+
     <canvas id="chartImpacto" style="display:none;"></canvas>
+
     <p id="impactoReal"></p>
+
   </div>
+
 </section>
 
-<!-- CARRUSEL -->
+<!-- =========================
+     CARRUSEL
+========================= -->
+
 <section id="campañas" class="seccion seccion-campañas">
+
   <h2>📢 Campañas Activas</h2>
+
   <div class="carousel-container">
-    <div class="carousel" id="carousel">
+
+    <div class="carousel-track" id="carouselTrack">
+
       <!-- CARD 1 -->
       <div class="card">
+
         <div class="card-inner">
+
           <div class="card-front">
-            <img src="img/residuos.png">
+            <img src="img/residuos.png" alt="">
             <h3>Playas Contaminadas</h3>
           </div>
+
           <div class="card-back">
-            <p>En México toneladas de basura llegan al mar cada año.</p>
-            <a href="https://pronatura.org.mx/" target="_blank">Pronatura</a>
+
+            <h3>Playas</h3>
+
+            <p>
+              En México toneladas de basura llegan al mar cada año.
+            </p>
+
+            <a href="https://pronatura.org.mx/" target="_blank">
+              Pronatura
+            </a>
+
           </div>
+
         </div>
+
       </div>
+
       <!-- CARD 2 -->
       <div class="card">
+
         <div class="card-inner">
+
           <div class="card-front">
-            <img src="img/tortugas.png">
+            <img src="img/tortugas.png" alt="">
             <h3>Tortugas en Peligro</h3>
           </div>
+
           <div class="card-back">
-            <p>1 de cada 3 tortugas ha ingerido plástico.</p>
-            <a href="https://www.semarnat.gob.mx/" target="_blank">SEMARNAT</a>
+
+            <h3>Tortugas</h3>
+
+            <p>
+              1 de cada 3 tortugas ha ingerido plástico.
+            </p>
+
+            <a href="https://www.semarnat.gob.mx/" target="_blank">
+              SEMARNAT
+            </a>
+
           </div>
+
         </div>
+
       </div>
+
       <!-- CARD 3 -->
       <div class="card">
+
         <div class="card-inner">
+
           <div class="card-front">
-            <img src="img/plastico en el oceano.png">
+            <img src="img/plastico en el oceano.png" alt="">
             <h3>Plástico en el Océano</h3>
           </div>
+
           <div class="card-back">
-            <p>Más de 8 millones de toneladas llegan al mar cada año.</p>
-            <a href="https://www.greenpeace.org/mexico/" target="_blank">Greenpeace</a>
+
+            <h3>Plástico</h3>
+
+            <p>
+              Más de 8 millones de toneladas llegan al mar cada año.
+            </p>
+
+            <a href="https://www.greenpeace.org/mexico/" target="_blank">
+              Greenpeace
+            </a>
+
           </div>
+
         </div>
+
       </div>
+
       <!-- CARD 4 -->
       <div class="card">
+
         <div class="card-inner">
+
           <div class="card-front">
-            <img src="img/oceano.png">
+            <img src="img/oceano.png" alt="">
             <h3>Fauna en Riesgo</h3>
           </div>
+
           <div class="card-back">
-            <p>Animales mueren atrapados en redes abandonadas.</p>
-            <a href="https://www.wwf.org.mx/" target="_blank">WWF México</a>
+
+            <h3>Fauna</h3>
+
+            <p>
+              Animales mueren atrapados en redes abandonadas.
+            </p>
+
+            <a href="https://www.wwf.org.mx/" target="_blank">
+              WWF México
+            </a>
+
           </div>
+
         </div>
+
       </div>
+
       <!-- CARD 5 -->
       <div class="card">
+
         <div class="card-inner">
+
           <div class="card-front">
-            <img src="img/arrecife.png">
+            <img src="img/arrecife.png" alt="">
             <h3>Arrecifes en Crisis</h3>
           </div>
+
           <div class="card-back">
-            <p>El calentamiento global destruye corales.</p>
-            <a href="https://www.conanp.gob.mx/" target="_blank">CONANP</a>
+
+            <h3>Arrecifes</h3>
+
+            <p>
+              El calentamiento global destruye corales.
+            </p>
+
+            <a href="https://www.conanp.gob.mx/" target="_blank">
+              CONANP
+            </a>
+
           </div>
+
         </div>
+
       </div>
-      <!-- Puedes eliminar los duplicados si no son necesarios -->
+
     </div>
+
   </div>
+
 </section>
 
 <!-- DATOS -->
 <section id="aprende" class="seccion seccion-aprende">
+
   <h2>🧠 Datos Curiosos</h2>
-  <button id="btnCurioso">Mostrar dato curioso</button>
+
+  <button id="btnCurioso">
+    Mostrar dato curioso
+  </button>
+
   <p id="datoCurioso"></p>
+
 </section>
 
 <!-- COMPROMISO -->
 <section id="compromiso" class="seccion seccion-compromiso">
+
   <h2>✍️ Deja Tu Compromiso</h2>
-  <input type="text" id="inputCompromiso" placeholder="Escribe tu compromiso">
-  <button id="btnAgregar">Agregar</button>
+
+  <input
+    type="text"
+    id="inputCompromiso"
+    placeholder="Escribe tu compromiso"
+  >
+
+  <button id="btnAgregar">
+    Agregar
+  </button>
+
   <ul id="listaCompromisos"></ul>
+
 </section>
 
 <footer>
   <p>© 2026 Conciencia Marina</p>
 </footer>
 
-<!-- Scripts al final del body -->
-<script src="js/chart.js" defer></script>        <!-- Chart.js local -->
-<script src="js/impacto.js" defer></script>     <!-- impacto.js -->
-<script type="module" src="main.js" defer></script> <!-- main.js como módulo -->
+<!-- =========================
+     SCRIPT CARRUSEL FLUIDO
+========================= -->
+
+<script>
+
+const track = document.getElementById("carouselTrack");
+
+/* GUARDAR CARDS ORIGINALES */
+const originalCards = [...track.children];
+
+/* CLONAR MUCHAS VECES */
+for(let i = 0; i < 4; i++){
+
+  originalCards.forEach(card => {
+
+    const clone = card.cloneNode(true);
+
+    track.appendChild(clone);
+
+  });
+
+}
+
+/* MOVIMIENTO */
+let position = 0;
+const speed = 0.7;
+
+/* CALCULAR ANCHO ORIGINAL */
+let singleSetWidth = 0;
+
+originalCards.forEach(card => {
+
+  singleSetWidth += card.offsetWidth + 30;
+
+});
+
+/* ANIMACIÓN */
+function animateCarousel(){
+
+  position -= speed;
+
+  if(Math.abs(position) >= singleSetWidth){
+
+    position = 0;
+
+  }
+
+  track.style.transform =
+    `translate3d(${position}px, 0, 0)`;
+
+  requestAnimationFrame(animateCarousel);
+
+}
+
+/* INICIAR */
+animateCarousel();
+
+</script>
+
+<!-- Scripts -->
+<script src="js/chart.js" defer></script>
+<script src="js/impacto.js" defer></script>
+<script type="module" src="main.js" defer></script>
 
 </body>
 </html>

@@ -53,9 +53,16 @@ async function registrar() {
   }
 
   if (password !== confirmPassword) {
-    mostrarMensaje("❌ Las contraseñas no coinciden");
-    return;
-  }
+  mostrarMensaje("❌ Las contraseñas no coinciden");
+  return;
+}
+
+const privacyCheck = document.getElementById("privacyCheck");
+
+if (!privacyCheck || !privacyCheck.checked) {
+  mostrarMensaje("📄 Debes aceptar el Aviso de Privacidad");
+  return;
+}
 
   try {
 

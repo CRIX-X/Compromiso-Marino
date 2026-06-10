@@ -39,7 +39,18 @@
         <span id="toggleConfirmPassword" class="toggle">👁</span>
     </div>
 
-    
+    <!-- AVISO DE PRIVACIDAD -->
+<div class="privacy-container">
+    <input type="checkbox" id="privacyCheck">
+    <label for="privacyCheck">
+        He leído y acepto el
+        <a href="AvisoPrivacidad.html" target="_blank">
+            Aviso de Privacidad
+        </a>
+    </label>
+</div>
+<div id="mensajeAviso" class="mensaje-aviso"></div>
+
     <button id="registerBtn">Registrarse</button>
 
     <p>¿Ya tienes cuenta? 
@@ -49,5 +60,6 @@
 </div>
 
 <script type="module" src="/auth.js"></script>
+
 </body>
 </html>

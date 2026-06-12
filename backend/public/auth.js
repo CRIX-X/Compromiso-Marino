@@ -1,10 +1,15 @@
-import { auth } from "./firebase.js";
+import { auth, db } from "./firebase.js";
 import { 
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+import { 
+  doc, 
+  setDoc 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 /* =========================
    MENSAJES BONITOS
@@ -65,14 +70,19 @@ if (!privacyCheck || !privacyCheck.checked) {
 }
 
   try {
+const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-    await createUserWithEmailAndPassword(auth, email, password);
+await setDoc(doc(db, "usuarios", userCredential.user.uid), {
+  email: userCredential.user.email,
+  role: "usuario",
+  fechaRegistro: new Date()
+});
 
-    mostrarMensaje("✅ Registro exitoso", "exito");
+mostrarMensaje("✅ Registro exitoso", "exito");
 
-    setTimeout(() => {
-      window.location.href = "login.html";
-    }, 1500);
+setTimeout(() => {
+  window.location.href = "login.html";
+}, 1500);
 
   } catch (error) {
 

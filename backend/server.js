@@ -8,6 +8,7 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const winston = require("winston");
 const fs = require('fs');
+const validator = require("validator");
 
 const app = express();
 
@@ -38,7 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 const FRONTEND_URL = process.env.FRONTEND_URL || "*";
 app.use(cors({
   origin: FRONTEND_URL,
-  methods: ["GET", "POST", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
 /* =========================
@@ -110,58 +111,187 @@ const Compromiso = mongoose.model("Compromiso", new mongoose.Schema({
   fecha: { type: Date, default: Date.now }
 }));
 
+
 /* =========================
-   RUTAS DE API
+   DONACIONES
 ========================= */
+
 app.post("/donacion", async (req, res) => {
   try {
-    const { NombreCliente, MontoDinero, Organizacion, userEmail } = req.body;
+let { NombreCliente, MontoDinero, Organizacion, userEmail } = req.body;
+
+NombreCliente = validator.escape(NombreCliente.trim());
+Organizacion = validator.escape(Organizacion.trim());
+userEmail = validator.normalizeEmail(userEmail);
     const datos = `${NombreCliente}-${MontoDinero}-${Organizacion}-${Date.now()}`;
-    const hash = crypto.createHash("sha256").update(datos).digest("hex");
-    const nueva = new Donacion({ NombreCliente, MontoDinero, Organizacion, userEmail, hash });
+
+    const hash = crypto
+      .createHash("sha256")
+      .update(datos)
+      .digest("hex");
+
+    const nueva = new Donacion({
+      NombreCliente,
+      MontoDinero,
+      Organizacion,
+      userEmail,
+      hash
+    });
+
     const guardada = await nueva.save();
+
     res.json(guardada);
+
   } catch (error) {
+
     console.error(error);
     res.status(500).json({ error: "Error servidor" });
+
   }
 });
 
 app.get("/donaciones/:email", async (req, res) => {
   try {
-    const lista = await Donacion.find({ userEmail: req.params.email });
+
+    const lista = await Donacion.find({
+      userEmail: req.params.email
+    });
+
     res.json(lista);
+
   } catch {
-    res.status(500).json({ error: "Error servidor" });
+
+    res.status(500).json({
+      error: "Error servidor"
+    });
+
   }
 });
 
 app.delete("/donacion/:id", async (req, res) => {
   try {
+
     await Donacion.findByIdAndDelete(req.params.id);
-    res.json({ message: "Eliminado" });
+
+    res.json({
+      message: "Eliminado"
+    });
+
   } catch {
-    res.status(500).json({ error: "Error servidor" });
+
+    res.status(500).json({
+      error: "Error servidor"
+    });
+
   }
 });
 
+/* =========================
+   COMPROMISOS
+========================= */
+
 app.get("/compromisos", async (req, res) => {
   try {
-    const lista = await Compromiso.find().sort({ fecha: -1 });
+
+    const lista = await Compromiso.find()
+      .sort({ fecha: -1 });
+
     res.json(lista);
+
   } catch (error) {
-    res.status(500).json({ error: "Error al obtener compromisos" });
+
+    res.status(500).json({
+      error: "Error al obtener compromisos"
+    });
+
   }
 });
 
 app.post("/compromisos", async (req, res) => {
   try {
-    const { userEmail, texto } = req.body;
-    const nuevo = new Compromiso({ userEmail, texto });
+
+  let { userEmail, texto } = req.body;
+
+texto = validator.escape(texto.trim());
+userEmail = validator.normalizeEmail(userEmail);
+
+const nuevo = new Compromiso({
+  userEmail,
+  texto
+});
+
     const guardado = await nuevo.save();
+
     res.json(guardado);
+
   } catch (error) {
-    res.status(500).json({ error: "Error al guardar compromiso" });
+
+    res.status(500).json({
+      error: "Error al guardar compromiso"
+    });
+
+  }
+});
+
+app.put("/compromisos/:id", async (req, res) => {
+  try {
+
+    const { texto } = req.body;
+
+    if (!texto || !texto.trim()) {
+      return res.status(400).json({
+        error: "El compromiso no puede estar vacío"
+      });
+    }
+
+    const actualizado =
+      await Compromiso.findByIdAndUpdate(
+        req.params.id,
+        { texto: validator.escape(texto.trim()) },
+        { new: true }
+      );
+
+    if (!actualizado) {
+      return res.status(404).json({
+        error: "Compromiso no encontrado"
+      });
+    }
+
+    res.json(actualizado);
+
+  } catch (error) {
+
+    res.status(500).json({
+      error: "Error al editar compromiso"
+    });
+
+  }
+});
+
+app.delete("/compromisos/:id", async (req, res) => {
+  try {
+
+    const eliminado =
+      await Compromiso.findByIdAndDelete(
+        req.params.id
+      );
+
+    if (!eliminado) {
+      return res.status(404).json({
+        error: "Compromiso no encontrado"
+      });
+    }
+
+    res.json({
+      message: "Compromiso eliminado"
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      error: "Error al eliminar compromiso"
+    });
+
   }
 });
 
@@ -169,6 +299,8 @@ app.post("/compromisos", async (req, res) => {
    ESTÁTICOS (Frontend)
 ========================= */
 const publicPath = path.join(__dirname, "public");
+console.log("PUBLIC PATH:", publicPath);
+console.log("ARCHIVOS PUBLIC:", fs.readdirSync(publicPath));
 app.use(express.static(publicPath));
 
 /* =========================

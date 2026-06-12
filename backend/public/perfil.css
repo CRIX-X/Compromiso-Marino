@@ -1,0 +1,328 @@
+/* =========================
+   RESET
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  color:white;
+
+  background:
+  radial-gradient(circle at top,
+  rgba(0,212,255,0.12),
+  transparent 35%),
+
+  linear-gradient(
+    to bottom,
+    #04101c,
+    #081c32,
+    #0b2d50,
+    #103c6b
+  );
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  padding:40px 20px;
+}
+
+/* =========================
+   PERFIL
+========================= */
+
+.perfil-container{
+  width:100%;
+  max-width:1000px;
+
+  padding:40px;
+
+  border-radius:30px;
+
+  background:rgba(255,255,255,0.08);
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+  0 20px 45px rgba(0,0,0,0.3);
+}
+
+.perfil-container h1{
+  text-align:center;
+  font-size:3rem;
+
+  margin-bottom:15px;
+
+  text-shadow:
+  0 0 15px rgba(0,212,255,0.45);
+}
+
+.perfil-container > p{
+  text-align:center;
+  margin-bottom:35px;
+  opacity:.9;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.perfil-card{
+  margin-bottom:25px;
+
+  padding:25px;
+
+  border-radius:24px;
+
+  background:rgba(255,255,255,0.05);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  transition:.3s;
+}
+
+.perfil-card:hover{
+  transform:translateY(-5px);
+
+  border-color:rgba(0,212,255,0.3);
+
+  box-shadow:
+  0 15px 30px rgba(0,212,255,0.15);
+}
+
+.perfil-card h3{
+  color:#7cecff;
+  margin-bottom:15px;
+}
+
+.perfil-card p{
+  line-height:1.8;
+}
+/* =========================
+   COMPROMISOS - INTERFAZ
+========================= */
+
+#misCompromisos li{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.18);
+}
+
+#misCompromisos li span{
+  flex:1;
+  line-height:1.6;
+}
+
+#misCompromisos li div{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* Botones dentro de compromisos */
+
+#misCompromisos button{
+  padding:9px 15px;
+  border-radius:12px;
+  font-size:0.85rem;
+  min-width:90px;
+}
+
+/* Editar */
+
+#misCompromisos button:first-of-type{
+  background:linear-gradient(135deg,#00d4ff,#0077ff);
+  box-shadow:0 8px 20px rgba(0,212,255,0.25);
+}
+
+/* Eliminar */
+
+#misCompromisos button:last-of-type{
+  background:linear-gradient(135deg,#ff4d6d,#c9184a);
+  box-shadow:0 8px 20px rgba(255,0,85,0.25);
+}
+
+#misCompromisos button:hover{
+  transform:translateY(-3px) scale(1.03);
+}
+
+/* =========================
+   COMPROMISOS
+========================= */
+
+#misCompromisos{
+  list-style:none;
+
+  margin-top:15px;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:12px;
+}
+
+#misCompromisos li{
+  padding:14px 18px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,0.08);
+
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+/* =========================
+   BOTONES GENERALES
+========================= */
+
+.botones-perfil{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+  transition:.3s;
+  padding:14px 24px;
+  border-radius:16px;
+  color:white;
+  font-weight:700;
+  background:linear-gradient(135deg,#00d4ff,#0077ff);
+  box-shadow:0 12px 28px rgba(0,212,255,0.25);
+}
+
+button:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 40px rgba(0,212,255,0.45);
+}
+
+#logoutPerfil{
+  background:linear-gradient(135deg,#ff4d6d,#c9184a);
+  box-shadow:0 10px 25px rgba(255,0,85,0.22);
+  margin-left:0;
+}
+
+#logoutPerfil:hover{
+  box-shadow:0 15px 35px rgba(255,0,85,0.45);
+}
+
+/* =========================
+   ADMIN EN PERFIL
+========================= */
+
+#adminOpciones{
+  margin-top:25px;
+  margin-bottom:25px;
+  border:1px solid rgba(0,212,255,0.28);
+  background:rgba(0,212,255,0.06);
+}
+
+#adminOpciones h3{
+  color:#7cecff;
+}
+
+#btnIrAdmin{
+  margin-top:15px;
+  background:linear-gradient(135deg,#7cecff,#0077ff);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+  .perfil-container{
+    padding:25px;
+  }
+
+  .perfil-container h1{
+    font-size:2.2rem;
+  }
+
+  button{
+    width:100%;
+    margin-bottom:10px;
+  }
+
+  #logoutPerfil{
+    margin-left:0;
+  }
+}
+.modal{
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,.7);
+
+  display:none;
+  justify-content:center;
+  align-items:center;
+
+  z-index:9999;
+}
+
+.modal-content{
+  width:90%;
+  max-width:450px;
+
+  padding:30px;
+
+  border-radius:24px;
+
+  background:rgba(8,28,50,.95);
+
+  backdrop-filter:blur(15px);
+
+  border:1px solid rgba(0,212,255,.25);
+
+  text-align:center;
+}
+
+.modal-content h3{
+  color:#7cecff;
+  margin-bottom:15px;
+}
+
+.modal-content p{
+  margin-bottom:25px;
+}
+
+.modal-buttons{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+}
+#textoEditar{
+  width:100%;
+  min-height:120px;
+  resize:none;
+  padding:15px;
+  border-radius:15px;
+  border:1px solid rgba(0,212,255,.25);
+  background:rgba(255,255,255,.08);
+  color:white;
+  outline:none;
+  margin-bottom:20px;
+}
+
+#textoEditar:focus{
+  border-color:#00d4ff;
+  box-shadow:0 0 18px rgba(0,212,255,.25);
+}

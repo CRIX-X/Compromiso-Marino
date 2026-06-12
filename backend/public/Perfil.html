@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Perfil | Conciencia Marina</title>
+  <link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+
+<section class="perfil-container">
+
+  <h1>Mi Perfil</h1>
+  <p>Gestión de perfil de usuario en Conciencia Marina.</p>
+
+  <!-- DATOS DEL USUARIO -->
+  <div class="perfil-card">
+
+    <h3>Datos de la cuenta</h3>
+
+    <p>
+      <strong>Correo:</strong>
+      <span id="perfilEmail"></span>
+    </p>
+
+    <p>
+      <strong>Rol:</strong>
+      <span id="perfilRole"></span>
+    </p>
+
+    <p>
+      <strong>Fecha de registro:</strong>
+      <span id="fechaRegistro"></span>
+    </p>
+
+    <p>
+      <strong>Estado:</strong>
+      <span style="color:lightgreen;">
+        Usuario Activo ✅
+      </span>
+    </p>
+
+  </div>
+
+  <!-- COMPROMISOS -->
+  <div class="perfil-card">
+
+    <h3>Mis compromisos</h3>
+
+    <p>
+      Aquí puedes consultar los compromisos que has realizado para cuidar el océano.
+    </p>
+
+    <ul id="misCompromisos"></ul>
+
+  </div>
+
+  <!-- BOTONES -->
+  <button id="volverInicio">
+    Volver al inicio
+  </button>
+
+  <button id="logoutPerfil">
+    Cerrar sesión
+  </button>
+
+  <div id="adminOpciones" class="perfil-card" style="display:none;">
+  <h3>Administración</h3>
+  <p>Opciones disponibles para administradores.</p>
+  <button id="btnIrAdmin">Ir al panel admin</button>
+</div>
+
+</section>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+
+  <div class="modal-content">
+
+    <h3 id="modalTitulo">
+      Mensaje
+    </h3>
+
+    <p id="modalTexto"></p>
+
+    <div class="modal-buttons">
+
+      <button id="modalAceptar">
+        Aceptar
+      </button>
+
+      <button id="modalCancelar">
+        Cancelar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="modalEditar" class="modal">
+  <div class="modal-content">
+    <h3>Editar compromiso</h3>
+
+    <textarea id="textoEditar" rows="4"></textarea>
+
+    <div class="modal-buttons">
+      <button id="guardarEdicion">Guardar</button>
+      <button id="cancelarEdicion">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="perfil.js"></script>
+
+</body>
+</html>

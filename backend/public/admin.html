@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Admin | Conciencia Marina</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<section class="admin-container">
+
+  <h1>Panel de Administración</h1>
+  <p>Área exclusiva para usuarios con rol administrador.</p>
+
+  <div class="admin-grid">
+
+    <div class="admin-card">
+      <h3>Usuarios registrados</h3>
+      <p>Consulta los usuarios y sus roles.</p>
+      <button id="btnUsuarios">Ver usuarios</button>
+    </div>
+
+    <div class="admin-card">
+      <h3>Compromisos</h3>
+      <p>Administra compromisos publicados.</p>
+      <button id="btnCompromisos">Ver compromisos</button>
+    </div>
+
+  </div>
+
+  <div id="adminResultado"></div>
+
+  <button id="volverPerfil">Volver al perfil</button>
+
+  <div id="adminOpciones" class="perfil-card" style="display:none;">
+  <h3>Administración</h3>
+  <p>Opciones disponibles para administradores.</p>
+  <button id="btnIrAdmin">Ir al panel admin</button>
+</div>
+
+</section>
+
+<script type="module" src="admin.js"></script>
+
+</body>
+</html>

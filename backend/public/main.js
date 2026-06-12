@@ -5,6 +5,7 @@ import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/
 const loginBtn = document.getElementById("loginBtn");
 const registerBtn = document.getElementById("registerBtn");
 const logoutBtn = document.getElementById("logoutBtn");
+const perfilBtn = document.getElementById("perfilBtn");
 const userEmail = document.getElementById("userEmail");
 const lista = document.getElementById("listaCompromisos");
 const input = document.getElementById("inputCompromiso");
@@ -16,17 +17,23 @@ const listaCampañas = document.getElementById("listaCampañas") || document.cre
 /* ===== SESIÓN ===== */
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        loginBtn.style.display = "none";
-        registerBtn.style.display = "none";
-        userEmail.style.display = "inline-block";
-        logoutBtn.style.display = "inline-block";
-        userEmail.textContent = "👤 " + user.email;
-    } else {
-        loginBtn.style.display = "inline-block";
-        registerBtn.style.display = "inline-block";
-        userEmail.style.display = "none";
-        logoutBtn.style.display = "none";
-    }
+    loginBtn.style.display = "none";
+    registerBtn.style.display = "none";
+
+    userEmail.style.display = "inline-block";
+    perfilBtn.style.display = "inline-block";
+    logoutBtn.style.display = "inline-block";
+
+    userEmail.textContent = "👤 " + user.email;
+}
+else {
+    loginBtn.style.display = "inline-block";
+    registerBtn.style.display = "inline-block";
+
+    userEmail.style.display = "none";
+    perfilBtn.style.display = "none";
+    logoutBtn.style.display = "none";
+}
 });
 
 /* ===== LOGOUT ===== */
@@ -35,6 +42,15 @@ logoutBtn.addEventListener("click", async () => {
     window.location.href = "login.html";
 });
 
+perfilBtn.addEventListener("click", () => {
+    const role = localStorage.getItem("role");
+
+    if (role === "admin") {
+        window.location.href = "admin.html";
+    } else {
+        window.location.href = "perfil.html";
+    }
+});
 /* ===== CARGAR COMPROMISOS ===== */
 window.addEventListener("DOMContentLoaded", async () => {
     try {
